@@ -139,4 +139,9 @@ namespace TridyVstupVypocetVystup
         public static PrevodInt GetInstance;
         public bool Prevod(string hodnotaStr);
     }
+    
+    interface IKontrola
+    {
+        public bool ProvedKontrolu
+    }
 }
