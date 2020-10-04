@@ -6,20 +6,18 @@ namespace TridyVstupVypocetVystup
     {
         static void Main(string[] args)
         {
-            DataTxt textData; //= new DataTxt();
             DataInt intData = new DataInt();
 
+            //Ziskavani platnych dat ze cstupu
             Vstup mujVstTxt = new Vstup(new DataTxt());
             Vstup mujVstInt = new Vstup(intData);
 
-
-
+            //Dalsi prace s daty
             //string vyslTxt =textData.Hodnota ;
-
-            DataTxt vyslTxt = (DataTxt)mujVstTxt.Vystup();
+            DataTxt vyslTxt = (DataTxt)mujVstTxt.VratHodnotu();
             //vyslTxt = (DataTxt)mujVstTxt.Vystup();
             string a = vyslTxt.Hodnota;
-            string b = ((DataTxt)mujVstTxt.Vystup()).Hodnota;
+            string b = ((DataTxt)mujVstTxt.VratHodnotu()).Hodnota;
 
             int vyslInt = intData.Hodnota;
         }
@@ -30,20 +28,22 @@ namespace TridyVstupVypocetVystup
     /// </summary>
     class Vstup : IVstup
     {
-        IData hodnota;
-        public Vstup(IData hodnota)
+        private readonly IData _hodnota;
+        public Vstup(IData prichoziHodnota)
         {
-            this.hodnota = hodnota;
+            _hodnota = prichoziHodnota;
             do { }
-            while (!this.hodnota.Prevod(VlastniVstup()));
+            while (_hodnota.ZkusPrevod(VlastniVstup()) != true);
+
+            //TODO: Sem patri spusteni kontroly dat
         }
         string VlastniVstup()
         {
             return "123456";
         }
-        public IData Vystup()
+        public IData VratHodnotu()
         {
-            return hodnota;
+            return _hodnota;
         }
     }
     /// <summary>
@@ -51,15 +51,16 @@ namespace TridyVstupVypocetVystup
     /// </summary>
     class DataInt : IData
     {
-        int hodnota;
-        public DataInt() { }
-        public bool Prevod(string hodnotaStr)
-        {
-            return PrevodInt.GetInstance.Prevod(hodnotaStr, out hodnota);
-        }
+        private int _hodnota;
+
         public int Hodnota
         {
-            get { return hodnota; }
+            get { return _hodnota; }
+        }
+
+        public bool ZkusPrevod(string hodnotaStr)
+        {
+            return PrevodInt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota);
         }
     }
     /// <summary>
@@ -67,17 +68,16 @@ namespace TridyVstupVypocetVystup
     /// </summary>
     class DataTxt : IData
     {
-        string hodnota;
-        public DataTxt()
-        {
-        }
-        public bool Prevod(string hodnotaStr)
-        {
-            return PrevodTxt.GetInstance.Prevod(hodnotaStr, out hodnota);
-        }
+        private string _hodnota;
+
         public string Hodnota
         {
-            get { return hodnota; }
+            get { return _hodnota; }
+        }
+
+        public bool ZkusPrevod(string hodnotaStr)
+        {
+            return PrevodTxt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota);
         }
     }
     /// <summary>
@@ -86,12 +86,12 @@ namespace TridyVstupVypocetVystup
     class PrevodTxt
     {
         static PrevodTxt implementace = new PrevodTxt();
-        private PrevodTxt() { }
+
         public static PrevodTxt GetInstance { get { return implementace; } }
 
-        public bool Prevod(string hodnotaStr, out string hodnota)
+        public bool ZkusPrevod(string prevadenyStr, out string hodnota)
         {
-            hodnota = hodnotaStr;
+            hodnota = prevadenyStr;
             return true;
         }
     }
@@ -116,19 +116,19 @@ namespace TridyVstupVypocetVystup
         /// Umožňuje přístup k implementaci třídy
         /// </summary>
         public static PrevodInt GetInstance { get { return implementace; } }
-        public bool Prevod(string hodnotaStr, out int hodnota)
+        public bool ZkusPrevod(string prevadenyStr, out int hodnota)
         {
-            return int.TryParse(hodnotaStr, out hodnota);
+            return int.TryParse(prevadenyStr, out hodnota);
         }
     }
     interface IVstup
     {
-        public IData Vystup();
+        public IData VratHodnotu();
     }
 
     interface IData
     {
-        public bool Prevod(string hodnotaStr);
+        public bool ZkusPrevod(string hodnotaStr);
     }
 
     /// <summary>
@@ -139,9 +139,15 @@ namespace TridyVstupVypocetVystup
         public static PrevodInt GetInstance;
         public bool Prevod(string hodnotaStr);
     }
-    
+
+    /// <summary>
+    /// Interface pro kontrolu dat
+    /// </summary>
     interface IKontrola
     {
-        public bool ProvedKontrolu
+        public bool ProvedKontrolu()    //TODO: Predat data ve spravne forme
+        {
+            throw new NotImplementedException();
+        }
     }
 }
