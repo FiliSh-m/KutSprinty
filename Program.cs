@@ -33,7 +33,7 @@ namespace TridyVstupVypocetVystup
         {
             _hodnota = prichoziHodnota;
             do { }
-            while (_hodnota.ZkusPrevod(VlastniVstup()) != true);
+            while (_hodnota.ZkusPrevod(VlastniVstup()) != true || _hodnota.ProvedKontrolu() != true);
 
             //TODO: Sem patri spusteni kontroly dat
         }
@@ -62,6 +62,18 @@ namespace TridyVstupVypocetVystup
         {
             return PrevodInt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota);
         }
+
+        public bool ProvedKontrolu()
+        {
+            if(_hodnota < 999999)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
     /// <summary>
     /// Třída pro zpracování a je nosičem dat typu string
@@ -69,7 +81,8 @@ namespace TridyVstupVypocetVystup
     class DataTxt : IData
     {
         private string _hodnota;
-
+        private readonly string _abeceda = "abcdefghijklmnopqrstuvwxyz";    //Nejsem si jisty, jestli by abeceda nebo cislice mely byt v teto tride anebo by mely byt predane shora
+        private readonly string _cislice = "0123456789";
         public string Hodnota
         {
             get { return _hodnota; }
@@ -78,6 +91,18 @@ namespace TridyVstupVypocetVystup
         public bool ZkusPrevod(string hodnotaStr)
         {
             return PrevodTxt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota);
+        }
+
+        public bool ProvedKontrolu()
+        {
+            foreach(char pismeno in _hodnota)
+            {
+                if (!_cislice.Contains(pismeno))
+                {
+                    return false;
+                }                
+            }
+            return true;
         }
     }
     /// <summary>
@@ -129,6 +154,7 @@ namespace TridyVstupVypocetVystup
     interface IData
     {
         public bool ZkusPrevod(string hodnotaStr);
+        public bool ProvedKontrolu();
     }
 
     /// <summary>
@@ -143,11 +169,4 @@ namespace TridyVstupVypocetVystup
     /// <summary>
     /// Interface pro kontrolu dat
     /// </summary>
-    interface IKontrola
-    {
-        public bool ProvedKontrolu()    //TODO: Predat data ve spravne forme
-        {
-            throw new NotImplementedException();
-        }
-    }
 }
