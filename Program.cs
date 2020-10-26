@@ -7,21 +7,21 @@ namespace TridyVstupVypocetVystup
     {
         static void Main(string[] args)
         {
-            DataInt intData = new DataInt();
+            string platneZnaky = "abcdefghijklmnopqrstuvwxyz";
+            int[] platnaCisla = new int[] { 0, 999999 };
+            DataTxt txtData = new DataTxt(platneZnaky);
+            DataInt intData = new DataInt(platnaCisla);
 
             //Ziskavani platnych dat ze vstupu
-            VstupConsole mujVstTxt = new VstupConsole(new DataTxt());
+            VstupConsole mujVstTxt = new VstupConsole(txtData);
             VstupConsole mujVstInt = new VstupConsole(intData);
-
-            mujVstTxt.VratHodnotu().ZkusKontrolu();
-            mujVstInt.VratHodnotu().ZkusKontrolu();
 
             //Dalsi prace s daty
             //string vyslTxt =textData.Hodnota ;
-            DataTxt vyslTxt = (DataTxt)mujVstTxt.VratHodnotu();
+            DataTxt vyslTxt = (DataTxt)mujVstTxt.Hodnota;
             //vyslTxt = (DataTxt)mujVstTxt.Vystup();
             string a = vyslTxt.Hodnota;
-            string b = ((DataTxt)mujVstTxt.VratHodnotu()).Hodnota;
+            string b = ((DataTxt)mujVstTxt.Hodnota).Hodnota;
 
             int vyslInt = intData.Hodnota;
             Console.ReadKey();
@@ -33,21 +33,25 @@ namespace TridyVstupVypocetVystup
     class Vstup : IVstup
     {
         private readonly IData _hodnota;
+        private string hlaska;
+
+        public IData Hodnota
+        {
+            get { return _hodnota; }
+        }
+
         public Vstup(IData ulozisteDat)
         {
             _hodnota = ulozisteDat;
             do { }
-            while (_hodnota.ZkusZpracovatVstup(PodstrcVstup()) != true);
+            while (_hodnota.ZkusZpracovatVstup(PodstrcVstup(), out hlaska) != true);
 
         }
         string PodstrcVstup()
         {
             return "123456";
         }
-        public IData VratHodnotu()  //Nešlo by tohle nahradit property?
-        {
-            return _hodnota;
-        }
+
     }
 
     /// <summary>
@@ -56,47 +60,52 @@ namespace TridyVstupVypocetVystup
     class VstupConsole : IVstup
     {
         private readonly IData _hodnota;
-        public VstupConsole(IData ulozisteDat) //Nešla by ta část kódy, která je v obou vstupech stejná dát do interface?
+        private string hlaska;
+        private HlaskaConsole hlaskaConsole = new HlaskaConsole();
+
+        public IData Hodnota
+        {
+            get { return _hodnota; }
+        }
+
+        public VstupConsole(IData ulozisteDat)
         {
             _hodnota = ulozisteDat;
 
             do
             {
-                //Nenapadá mě, jak jinak získávat ty interní hlášky, nez pomocí eventů. Nechávám na příště.
+                Console.WriteLine(hlaskaConsole.VyrobPrompt(hlaska));
             }
-            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup()) != true);
+            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(ulozisteDat), out hlaska) != true);
 
 
         }
-        string ZiskejVstup()
+        string ZiskejVstup(IData ulozisteDat)
         {
-            Console.Write("Zadejte číslo: ");
+            Console.Write(string.Format("Zadejte vstup ({0}): ", ulozisteDat.TypDat));
             return Console.ReadLine();
         }
-        public IData VratHodnotu()  //Nešlo by tohle nahradit property?
-        {
-            return _hodnota;
-        }
+
     }
 
     /// <summary>
     /// Třída obsahující hlášky, v budoucnu bude využita za pomoci asi eventů, teď jsem je tam zatím dal natvrdo
     /// </summary>
-    class ConsoleHlasky
+    class HlaskaConsole
     {
-        private readonly Dictionary<string, string> kodHlasky = new Dictionary<string, string>();
 
-        public ConsoleHlasky()
+        public string VyrobPrompt(string hlaska)
         {
-            kodHlasky.Add("nic", "");
-            kodHlasky.Add("neplatne znaky", "Nezadali jste vstup pomocí platných znaků.");
-        }
+            if (hlaska == null)
+            {
+                return null;
+            }
+            
+            else
+            {
+                return string.Format("Nezadali jste platný vstup, {0}", hlaska);
+            }
 
-        public string VratHlasku(string kod)
-        {
-            string hlaska;
-            kodHlasky.TryGetValue(kod, out hlaska);
-            return hlaska;
         }
     }
 
@@ -106,12 +115,17 @@ namespace TridyVstupVypocetVystup
     class DataInt : IData
     {
         private int _hodnota;
-        private readonly int[] _platnaCisla = new int[] { 0, 999999 };
+
+        public string TypDat
+        {
+            get { return "číslo"; }
+        }
+
         KontrolaInt kontrolaInt;
 
-        public DataInt()
+        public DataInt(int[] platnaCisla)
         {
-            kontrolaInt = new KontrolaInt(_platnaCisla);
+            kontrolaInt = new KontrolaInt(platnaCisla);
         }
 
         public int Hodnota
@@ -124,9 +138,21 @@ namespace TridyVstupVypocetVystup
             return kontrolaInt.ProvedKontrolu(this);
         }
 
-        public bool ZkusZpracovatVstup(string hodnotaStr)
+        public bool ZkusZpracovatVstup(string hodnotaStr, out string hlaska)
         {
-            return PrevodInt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota) && ZkusKontrolu();
+            if (!PrevodInt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota))
+            {
+                hlaska = "nebylo možné provést převod";
+                return false;
+            }
+               
+            if (!ZkusKontrolu()) 
+            {
+                hlaska = "neprosla kontrola";
+                return false;
+            }
+            hlaska = null;
+            return true;
         }
 
     }
@@ -136,12 +162,17 @@ namespace TridyVstupVypocetVystup
     class DataTxt : IData
     {
         private string _hodnota;
-        private readonly string _platneZnaky = "0123456789";
+
+        public string TypDat
+        {
+            get { return "text"; }
+        }
+
         KontrolaTxt kontrolaTxt;
 
-        public DataTxt()
+        public DataTxt(string platneZnaky)
         {
-            kontrolaTxt = new KontrolaTxt(_platneZnaky);
+            kontrolaTxt = new KontrolaTxt(platneZnaky);
         }
 
         public string Hodnota
@@ -154,10 +185,23 @@ namespace TridyVstupVypocetVystup
             return kontrolaTxt.ProvedKontrolu(this);
         }
 
-        public bool ZkusZpracovatVstup(string hodnotaStr)
+        public bool ZkusZpracovatVstup(string hodnotaStr, out string hlaska)
         {
-            return PrevodTxt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota) && ZkusKontrolu();
-        }     
+            if (!PrevodTxt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota))
+            {
+                hlaska = "nebylo možné provést převod";
+                return false;
+            }
+               
+            if (!ZkusKontrolu()) 
+            {
+                hlaska = "neprošla kontrola";
+                return false;
+            }
+
+            hlaska = null;
+            return true;
+        }
     }
 
     /// <summary>
@@ -201,15 +245,17 @@ namespace TridyVstupVypocetVystup
             return int.TryParse(prevadenyStr, out hodnota);
         }
     }
-    interface IVstup
-    {
-        public IData VratHodnotu();
-    }
 
     interface IData
     {
-        public bool ZkusZpracovatVstup(string hodnotaStr);
+        public string TypDat { get; }
+        public bool ZkusZpracovatVstup(string hodnotaStr, out string hlaska);
         public bool ZkusKontrolu();
+    }
+
+    interface IVstup
+    {
+        public IData Hodnota { get; }
     }
 
     /// <summary>
@@ -224,7 +270,7 @@ namespace TridyVstupVypocetVystup
     /// <summary>
     /// Třída pro kontrolu dat ve formátu string
     /// </summary>
-    class KontrolaTxt //Chtěl jsem použít interface, aby se automaticky zvolil typ kontroly, ale vypada to, ze tohle uz nejde, takze nemelo cenu ho pouzivat
+    class KontrolaTxt
     {
         private readonly string _platneZnaky;
 
