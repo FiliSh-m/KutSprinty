@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KutSprinty;
+using System;
 using System.Collections.Generic;
 
 namespace TridyVstupVypocetVystup
@@ -7,15 +8,15 @@ namespace TridyVstupVypocetVystup
     {
         static void Main(string[] args)
         {
-            double test = 1.0;
-            string platneZnaky = "abcdefghijklmnopqrstuvwxyz";
-            int[] platnaCisla = new int[] { 0, 999999 };
-            DataTxt txtData = new DataTxt(platneZnaky);
-            DataInt intData = new DataInt(platnaCisla);
+            KriteriaTxt kriteriaTxt = new KriteriaTxt();
+            KriteriaInt kriteriaInt = new KriteriaInt();
+            DataTxt txtData = new DataTxt(kriteriaTxt.Kriteria);
+            DataInt intData = new DataInt(kriteriaInt.Kriteria);
+            VstupPrompty vstupPrompty = new VstupPrompty();
 
             //Ziskavani platnych dat ze vstupu
-            VstupConsole mujVstTxt = new VstupConsole(txtData);
-            VstupConsole mujVstInt = new VstupConsole(intData);
+            VstupConsole mujVstTxt = new VstupConsole(txtData, vstupPrompty);
+            VstupConsole mujVstInt = new VstupConsole(intData, vstupPrompty);
 
             //Dalsi prace s daty
             //string vyslTxt =textData.Hodnota ;

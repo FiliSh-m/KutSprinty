@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KutSprinty;
+using System;
 
 namespace TridyVstupVypocetVystup
 {
@@ -10,27 +11,28 @@ namespace TridyVstupVypocetVystup
         private readonly IData _hodnota;
         private string hlaska;
         private HlaskaConsole hlaskaConsole = new HlaskaConsole();
+        private readonly VstupPrompty _prompty;
+
+        public VstupConsole(IData ulozisteDat, VstupPrompty prichoziPrompty)
+        {
+            _prompty = prichoziPrompty;
+            do
+            {
+                hlaskaConsole.VypisChybu(hlaska);
+            }
+            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(ulozisteDat), out hlaska) != true);
+
+            _hodnota = ulozisteDat;
+        }
 
         public IData Hodnota
         {
             get { return _hodnota; }
         }
 
-        public VstupConsole(IData ulozisteDat)
-        {
-            _hodnota = ulozisteDat;
-
-            do
-            {
-                Console.WriteLine(hlaskaConsole.VyrobPrompt(hlaska));
-            }
-            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(ulozisteDat), out hlaska) != true);
-
-
-        }
         string ZiskejVstup(IData ulozisteDat)
         {
-            Console.Write(string.Format("Zadejte vstup ({0}): ", ulozisteDat.TypDat));
+            Console.Write(string.Format(_prompty.PromptZadaniVstupu, ulozisteDat.TypDat));
             return Console.ReadLine();
         }
 

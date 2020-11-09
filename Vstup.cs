@@ -8,19 +8,20 @@
         private readonly IData _hodnota;
         private string hlaska;
 
+        public Vstup(IData ulozisteDat)
+        {
+            _hodnota = ulozisteDat;
+            do { }
+            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(), out hlaska) != true);
+
+        }
+
         public IData Hodnota
         {
             get { return _hodnota; }
         }
 
-        public Vstup(IData ulozisteDat)
-        {
-            _hodnota = ulozisteDat;
-            do { }
-            while (_hodnota.ZkusZpracovatVstup(PodstrcVstup(), out hlaska) != true);
-
-        }
-        string PodstrcVstup()
+        string ZiskejVstup()
         {
             return "123456";
         }
