@@ -14,9 +14,9 @@
 
         KontrolaInt kontrolaInt;
 
-        public DataInt(int[] platnaCisla)
+        public DataInt(KontrolaInt predanaKontrolaInt)
         {
-            kontrolaInt = new KontrolaInt(platnaCisla);
+            kontrolaInt = predanaKontrolaInt;
         }
 
         public int Hodnota
@@ -31,19 +31,29 @@
 
         public bool ZkusZpracovatVstup(string hodnotaStr, out string hlaska)
         {
-            if (!PrevodInt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota))
-            {
-                hlaska = "nebylo možné provést převod";
-                return false;
-            }
-               
-            if (!ZkusKontrolu()) 
-            {
-                hlaska = "neprošla kontrola";
-                return false;
-            }
+            bool uspech;
             hlaska = null;
-            return true;
+            if (PrevodInt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota))
+            {
+
+                if (ZkusKontrolu())
+                {
+                    uspech = true;
+                }
+                else
+                {
+                    uspech = false;
+                    hlaska = "neprošla kontrola";
+                }
+
+            }
+            else
+            {
+                uspech = false;
+                hlaska = "nebylo možné provést převod"; ;
+            }
+
+            return uspech;
         }
 
     }

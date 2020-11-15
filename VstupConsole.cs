@@ -16,13 +16,13 @@ namespace TridyVstupVypocetVystup
         public VstupConsole(IData ulozisteDat, VstupPrompty prichoziPrompty)
         {
             _prompty = prichoziPrompty;
-            do
+            _hodnota = ulozisteDat;
+
+            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(ulozisteDat), out hlaska) != true)
             {
                 hlaskaConsole.VypisChybu(hlaska);
             }
-            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(ulozisteDat), out hlaska) != true);
-
-            _hodnota = ulozisteDat;
+                       
         }
 
         public IData Hodnota
@@ -32,7 +32,7 @@ namespace TridyVstupVypocetVystup
 
         string ZiskejVstup(IData ulozisteDat)
         {
-            Console.Write(string.Format(_prompty.PromptZadaniVstupu, ulozisteDat.TypDat));
+            Console.Write(string.Format(_prompty.PromptZadaniVstupu, ulozisteDat.TypDat)); //Podle mě tohle má cenu, protože pak můžu mít přizpůsobený ty na základě požadovaného typu dat
             return Console.ReadLine();
         }
 

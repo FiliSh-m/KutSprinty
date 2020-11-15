@@ -14,9 +14,9 @@
 
         KontrolaTxt kontrolaTxt;
 
-        public DataTxt(string platneZnaky)
+        public DataTxt(KontrolaTxt predanaKontrolaTxt)
         {
-            kontrolaTxt = new KontrolaTxt(platneZnaky);
+            kontrolaTxt = predanaKontrolaTxt;
         }
 
         public string Hodnota
@@ -31,20 +31,29 @@
 
         public bool ZkusZpracovatVstup(string hodnotaStr, out string hlaska)
         {
-            if (!PrevodTxt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota))
+            bool uspech;
+            hlaska = null;
+            if (PrevodTxt.GetInstance.ZkusPrevod(hodnotaStr, out _hodnota))
             {
-                hlaska = "nebylo možné provést převod";
-                return false;
+
+                if (ZkusKontrolu()) 
+                {                    
+                    uspech =  true;
+                }
+                else
+                {
+                    uspech = false;
+                    hlaska = "neprošla kontrola";
+                }
+
             }
-               
-            if (!ZkusKontrolu()) 
+            else
             {
-                hlaska = "neprošla kontrola";
-                return false;
+                uspech = false;
+                hlaska = "nebylo možné provést převod";;
             }
 
-            hlaska = null;
-            return true;
+            return uspech;
         }
     }
 

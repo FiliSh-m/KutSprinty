@@ -10,8 +10,8 @@ namespace TridyVstupVypocetVystup
         {
             KriteriaTxt kriteriaTxt = new KriteriaTxt();
             KriteriaInt kriteriaInt = new KriteriaInt();
-            DataTxt txtData = new DataTxt(kriteriaTxt.Kriteria);
-            DataInt intData = new DataInt(kriteriaInt.Kriteria);
+            DataTxt txtData = new DataTxt(new KontrolaTxt(kriteriaTxt.Kriteria));
+            DataInt intData = new DataInt(new KontrolaInt(kriteriaInt.Kriteria));
             VstupPrompty vstupPrompty = new VstupPrompty();
 
             //Ziskavani platnych dat ze vstupu
