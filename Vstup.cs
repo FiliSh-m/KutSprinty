@@ -11,14 +11,18 @@
         public Vstup(IData ulozisteDat)
         {
             _hodnota = ulozisteDat;
-            do { }
-            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(), out hlaska) != true);
-
         }
+
 
         public IData Hodnota
         {
             get { return _hodnota; }
+        }
+
+        public void ProvedZiskaniDat()
+        {
+            do { }
+            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(), out hlaska) != true);
         }
 
         string ZiskejVstup()

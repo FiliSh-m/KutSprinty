@@ -8,21 +8,28 @@ namespace TridyVstupVypocetVystup
     /// </summary>
     class VstupConsole : IVstup
     {
-        private readonly IData _hodnota;
+        private  IData _hodnota;
         private string hlaska;
         private HlaskaConsole hlaskaConsole = new HlaskaConsole();
         private readonly VstupPrompty _prompty;
-
+        //public delegate void Oznam(IData data);
+        public event EventHandler<IData> ZiskanyVstup;
         public VstupConsole(IData ulozisteDat, VstupPrompty prichoziPrompty)
         {
             _prompty = prichoziPrompty;
-            _hodnota = ulozisteDat;
+            _hodnota = ulozisteDat;           
+                       
+        }
 
-            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(ulozisteDat), out hlaska) != true)
+        public void ProvedZiskaniDat()
+        {
+            while (_hodnota.ZkusZpracovatVstup(ZiskejVstup(_hodnota), out hlaska) != true)
             {
                 hlaskaConsole.VypisChybu(hlaska);
             }
-                       
+
+            ZiskanyVstup.Invoke(this, _hodnota);
+
         }
 
         public IData Hodnota
@@ -35,6 +42,7 @@ namespace TridyVstupVypocetVystup
             Console.Write(string.Format(_prompty.PromptZadaniVstupu, ulozisteDat.TypDat)); //Podle mě tohle má cenu, protože pak můžu mít přizpůsobený ty na základě požadovaného typu dat
             return Console.ReadLine();
         }
+
 
     }
 
