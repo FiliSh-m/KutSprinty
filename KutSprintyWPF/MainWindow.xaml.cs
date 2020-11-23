@@ -20,16 +20,16 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        string promptVstupText = "Zadejte vstup (text)";
-        string promptVstupInt = "Zadejte vstup (cislo)";
+        string promptVstupText = "Zadejte vstup (_text)";
+        string promptVstupInt = "Zadejte vstup (_cislo)";
         string promptVystup;
         string toolTipText = "Pouze malá písmena bez diakritiky";
         string toolTipInt= "Číslice 0-9, rozsah 0-999999";
         public MainWindow()
         {
             InitializeComponent();
-            Vstup1TextBlock.Text = promptVstupText;
-            Vstup2TextBlock.Text = promptVstupInt;
+            Vstup1Label.Content = promptVstupText;
+            Vstup2Label.Content = promptVstupInt;
             Vstup1TextBox.ToolTip = toolTipText;
             Vstup2TextBox.ToolTip = toolTipInt;
 

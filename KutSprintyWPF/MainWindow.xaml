@@ -9,12 +9,12 @@
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top">
             <WrapPanel Margin="0, 5">
-                <TextBlock VerticalAlignment="Center" Name="Vstup1TextBlock" Text="PromptVstupText"></TextBlock>
+                <Label VerticalAlignment="Center" Target="{Binding ElementName=Vstup1TextBox}"  Name="Vstup1Label" Content="PromptVstupText"></Label>
                 <TextBox x:Name="Vstup1TextBox" Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
                 <TextBlock Name = "Chyba1TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="0, 5">
-                <TextBlock VerticalAlignment="Center" Name="Vstup2TextBlock" Text="PromptVstupInt" ToolTip="ToolTipInt"></TextBlock>
+                <Label VerticalAlignment="Center" Target="{Binding ElementName=Vstup2TextBox}" Name="Vstup2Label" Content="PromptVstupInt" ToolTip="ToolTipInt"></Label>
                 <TextBox x:Name="Vstup2TextBox" Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
                 <TextBlock Name ="Chyba2TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
             </WrapPanel>
@@ -23,7 +23,16 @@
 
         <Canvas DockPanel.Dock="Bottom" Background="AliceBlue">
             <TextBlock HorizontalAlignment="Left" Name="VystupTextBlock" Text="PromptVystup" Canvas.Left="10" Canvas.Top="21"/>
-            <Image Source="doomguy.png" Height="37" Width="56" Canvas.Left="17" Canvas.Top="45"></Image>
+            <Image Source="doomguy.png" Height="37" Width="56" Canvas.Left="17" Canvas.Top="45" Panel.ZIndex="0"></Image>
+            <ListBox  Canvas.Left="17" Canvas.Top="106" >
+                <ListBoxItem>Prvni polozka</ListBoxItem>
+                <ListBoxItem>Druha polozka</ListBoxItem>
+            </ListBox>
+            <ComboBox Canvas.Left="80" Canvas.Top="150">
+                <ComboBoxItem Background="Red">Treti polozka</ComboBoxItem>
+                <ComboBoxItem Background="#FF00FF0C">Ctvrta polozka</ComboBoxItem>
+            </ComboBox>
+            <RadioButton Canvas.Left="31" Canvas.Top="54" Panel.ZIndex="1"></RadioButton>
         </Canvas>
     </DockPanel>
 </Window>
