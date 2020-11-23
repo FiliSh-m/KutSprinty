@@ -6,27 +6,24 @@
         xmlns:local="clr-namespace:KutSprintyWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.Row="0">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Top">
             <WrapPanel Margin="0, 5">
-                <TextBlock VerticalAlignment="Center">Zadejte vstup (text)</TextBlock>
-                <TextBox Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left"></TextBox>
-                <TextBlock VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
+                <TextBlock VerticalAlignment="Center" Name="Vstup1TextBlock" Text="PromptVstupText"></TextBlock>
+                <TextBox x:Name="Vstup1TextBox" Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                <TextBlock Name = "Chyba1TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
             </WrapPanel>
             <WrapPanel Margin="0, 5">
-                <TextBlock VerticalAlignment="Center">Zadejte vstup (cislo)</TextBlock>
-                <TextBox Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left"></TextBox>
-                <TextBlock VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
+                <TextBlock VerticalAlignment="Center" Name="Vstup2TextBlock" Text="PromptVstupInt" ToolTip="ToolTipInt"></TextBlock>
+                <TextBox x:Name="Vstup2TextBox" Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
+                <TextBlock Name ="Chyba2TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
             </WrapPanel>
-            <Button HorizontalAlignment="Left" Padding="10, 0" Margin="5">Potvrdit</Button>
+            <Button HorizontalAlignment="Left" Padding="10, 0" Margin="5" Click="Button_Click">Potvrdit</Button>
         </StackPanel>
-        <TextBlock Grid.Row="1" VerticalAlignment="Center" Margin="5, 0">Vystup</TextBlock>
-    </Grid>
+
+        <Canvas DockPanel.Dock="Bottom" Background="AliceBlue">
+            <TextBlock HorizontalAlignment="Left" Name="VystupTextBlock" Text="PromptVystup" Canvas.Left="10" Canvas.Top="21"/>
+            <Image Source="doomguy.png" Height="37" Width="56" Canvas.Left="17" Canvas.Top="45"></Image>
+        </Canvas>
+    </DockPanel>
 </Window>
