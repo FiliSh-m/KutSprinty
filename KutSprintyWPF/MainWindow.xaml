@@ -6,33 +6,38 @@
         xmlns:local="clr-namespace:KutSprintyWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="TextBox" x:Key="StringTextBox">
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Margin" Value="10, 0"/>
+        </Style>
+        <Style x:Key="TextBoxLabel" TargetType="Label">
+            <Setter Property="VerticalAlignment">
+                <Setter.Value>
+                    Center
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top">
             <WrapPanel Margin="0, 5">
-                <Label VerticalAlignment="Center" Target="{Binding ElementName=Vstup1TextBox}"  Name="Vstup1Label" Content="PromptVstupText"></Label>
-                <TextBox x:Name="Vstup1TextBox" Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
-                <TextBlock Name = "Chyba1TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
+                <Label Name="Vstup1Label" Style="{StaticResource TextBoxLabel}" Target="{Binding ElementName=Vstup1TextBox}" Content="PromptVstupText"/>
+                <TextBox x:Name="Vstup1TextBox" Style="{StaticResource StringTextBox}" HorizontalAlignment="Left"/>
+                <TextBlock Name = "Chyba1TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"/>
             </WrapPanel>
             <WrapPanel Margin="0, 5">
-                <Label VerticalAlignment="Center" Target="{Binding ElementName=Vstup2TextBox}" Name="Vstup2Label" Content="PromptVstupInt" ToolTip="ToolTipInt"></Label>
-                <TextBox x:Name="Vstup2TextBox" Margin="10, 0" Height="30" Width="90" HorizontalAlignment="Left" VerticalContentAlignment="Center"></TextBox>
-                <TextBlock Name ="Chyba2TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"></TextBlock>
+                <Label Name="Vstup2Label" Style="{StaticResource TextBoxLabel}" Target="{Binding ElementName=Vstup2TextBox}" Content="PromptVstupInt" ToolTip="ToolTipInt"/>
+                <TextBox x:Name="Vstup2TextBox" Style="{StaticResource StringTextBox}" HorizontalAlignment="Left"/>
+                <TextBlock Name ="Chyba2TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"/>
             </WrapPanel>
             <Button HorizontalAlignment="Left" Padding="10, 0" Margin="5" Click="Button_Click">Potvrdit</Button>
         </StackPanel>
-
-        <Canvas DockPanel.Dock="Bottom" Background="AliceBlue">
-            <TextBlock HorizontalAlignment="Left" Name="VystupTextBlock" Text="PromptVystup" Canvas.Left="10" Canvas.Top="21"/>
-            <Image Source="doomguy.png" Height="37" Width="56" Canvas.Left="17" Canvas.Top="45" Panel.ZIndex="0"></Image>
-            <ListBox  Canvas.Left="17" Canvas.Top="106" >
-                <ListBoxItem>Prvni polozka</ListBoxItem>
-                <ListBoxItem>Druha polozka</ListBoxItem>
-            </ListBox>
-            <ComboBox Canvas.Left="80" Canvas.Top="150">
-                <ComboBoxItem Background="Red">Treti polozka</ComboBoxItem>
-                <ComboBoxItem Background="#FF00FF0C">Ctvrta polozka</ComboBoxItem>
-            </ComboBox>
-            <RadioButton Canvas.Left="31" Canvas.Top="54" Panel.ZIndex="1"></RadioButton>
-        </Canvas>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Name="VystupTextBlock" Text="PromptVystup"/>
     </DockPanel>
 </Window>
