@@ -6,7 +6,7 @@ namespace TridyVstupVypocetVystup
 {
     class Program
     {
-
+        //Testovací text pro Git
         static void Main(string[] args)
         {
             KriteriaTxt kriteriaTxt = new KriteriaTxt();
