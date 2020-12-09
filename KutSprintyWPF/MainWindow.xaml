@@ -26,16 +26,8 @@
     </Window.Resources>
     <DockPanel Margin="10">
         <StackPanel DockPanel.Dock="Top">
-            <WrapPanel Margin="0, 5">
-                <Label Name="Vstup1Label" Style="{StaticResource TextBoxLabel}" Target="{Binding ElementName=Vstup1TextBox}" Content="PromptVstupText"/>
-                <TextBox x:Name="Vstup1TextBox" Style="{StaticResource StringTextBox}" HorizontalAlignment="Left"/>
-                <TextBlock Name = "Chyba1TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"/>
-            </WrapPanel>
-            <WrapPanel Margin="0, 5">
-                <Label Name="Vstup2Label" Style="{StaticResource TextBoxLabel}" Target="{Binding ElementName=Vstup2TextBox}" Content="PromptVstupInt" ToolTip="ToolTipInt"/>
-                <TextBox x:Name="Vstup2TextBox" Style="{StaticResource StringTextBox}" HorizontalAlignment="Left"/>
-                <TextBlock Name ="Chyba2TextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"/>
-            </WrapPanel>
+            <local:VstupRadek x:Name="VstupRadek1"/>
+            <local:VstupRadek x:Name="VstupRadek2"/>
             <Button HorizontalAlignment="Left" Padding="10, 0" Margin="5" Click="Button_Click">Potvrdit</Button>
         </StackPanel>
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Name="VystupTextBlock" Text="PromptVystup"/>

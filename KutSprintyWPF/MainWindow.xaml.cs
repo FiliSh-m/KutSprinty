@@ -20,24 +20,45 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        string promptVstupText = "Zadejte vstup (_text)";
-        string promptVstupInt = "Zadejte vstup (_cislo)";
+        private string promptVstupText = "Zadejte vstup (_text)";
+        private string promptVstupInt = "Zadejte vstup (_cislo)";
         string promptVystup;
-        string toolTipText = "Pouze malá písmena bez diakritiky";
-        string toolTipInt= "Číslice 0-9, rozsah 0-999999";
+        private string toolTipText = "Pouze malá písmena bez diakritiky";
+        private string toolTipInt= "Číslice 0-9, rozsah 0-999999";
+        private string radekText1;
+        private string radekText2;
+
+        public string RadekText1
+        {
+            get
+            {
+                return radekText1;
+            }
+        }
+
+        public string RadekText2
+        {
+            get
+            {
+                return radekText2;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
-            Vstup1Label.Content = promptVstupText;
-            Vstup2Label.Content = promptVstupInt;
-            Vstup1TextBox.ToolTip = toolTipText;
-            Vstup2TextBox.ToolTip = toolTipInt;
+            VstupRadek1.VstupLabel.Content = promptVstupText;
+            VstupRadek2.VstupLabel.Content = promptVstupInt;
+            VstupRadek1.VstupTextBox.ToolTip = toolTipText;
+            VstupRadek2.VstupTextBox.ToolTip = toolTipInt;
+
 
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Zde bude kód spuštěný po stisknutí tlačítka
+            radekText1 = VstupRadek1.VstupTextBox.Text;
+            radekText2 = VstupRadek2.VstupTextBox.Text;
         }
     }
 

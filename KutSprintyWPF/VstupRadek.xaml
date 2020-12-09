@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="KutSprintyWPF.VstupRadek"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:KutSprintyWPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <WrapPanel Margin="0, 5">
+        <Label Name="VstupLabel" Target="{Binding ElementName=VstupTextBox}" Content="PromptVstupText"/>
+        <TextBox x:Name="VstupTextBox" Width="50" Margin="10,0" HorizontalAlignment="Left"/>
+        <TextBlock Name = "ChybaTextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"/>
+    </WrapPanel>
+</UserControl>
