@@ -3,10 +3,10 @@
     /// <summary>
     /// Nepoužito
     /// </summary>
-    interface IPrevod
-    {
-        public static PrevodInt GetInstance;
-        public bool Prevod(string hodnotaStr);
-    }
+    //interface IPrevod
+    //{
+    //    public static PrevodInt GetInstance;
+    //    public bool Prevod(string hodnotaStr);
+    //}
 
 }

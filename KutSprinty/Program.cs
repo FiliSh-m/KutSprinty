@@ -35,10 +35,12 @@ namespace TridyVstupVypocetVystup
 
             //int vyslInt = intData.Hodnota;
             Console.ReadKey();
+
             void mujVstInt_ZiskanyVstup(object sender, IData poslanaData)
             {
                 ziskanyInt = (DataInt)poslanaData;
             }
+
             void mujVstTxt_ZiskanyVstup(object sender, IData poslanaData)
             {
                 ziskanyTxt = (DataTxt)poslanaData;

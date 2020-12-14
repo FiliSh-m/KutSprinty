@@ -16,7 +16,7 @@
         {
             foreach (char pismeno in kontrolovanaData.Hodnota)
             {
-                if (!_platneZnaky.Contains(pismeno))
+                if (!_platneZnaky.Contains(pismeno.ToString()))
                 {
                     return false;
                 }
