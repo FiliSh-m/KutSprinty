@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KutSprinty
 {
-    class KriteriaInt : IKriteria
+    public class KriteriaInt : IKriteria
     {
         public int[] Kriteria
         {

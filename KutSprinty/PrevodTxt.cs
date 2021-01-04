@@ -1,4 +1,4 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Třída pro převod řetězce na řetězec. Nic nepřevádí

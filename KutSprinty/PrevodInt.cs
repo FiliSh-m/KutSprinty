@@ -1,4 +1,4 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Singleton - existuje jen jedna instance třídy. Oproti statické třídě, umožňuje dědění

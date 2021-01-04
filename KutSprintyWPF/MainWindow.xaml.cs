@@ -20,45 +20,40 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string promptVstupText = "Zadejte vstup (_text)";
-        private string promptVstupInt = "Zadejte vstup (_cislo)";
-        string promptVystup;
-        private string toolTipText = "Pouze malá písmena bez diakritiky";
-        private string toolTipInt= "Číslice 0-9, rozsah 0-999999";
-        private string radekText1;
-        private string radekText2;
-
-        public string RadekText1
-        {
-            get
-            {
-                return radekText1;
-            }
-        }
-
-        public string RadekText2
-        {
-            get
-            {
-                return radekText2;
-            }
-        }
+        //Event handler na posilani radku se vstupem
+        //TODO: posilani celych radku je mozna zbytecne, ale zase je to jednoduche
+        public event EventHandler<UIElementCollection> PoslanVstup;
 
         public MainWindow()
         {
             InitializeComponent();
-            VstupRadek1.VstupLabel.Content = promptVstupText;
-            VstupRadek2.VstupLabel.Content = promptVstupInt;
-            VstupRadek1.VstupTextBox.ToolTip = toolTipText;
-            VstupRadek2.VstupTextBox.ToolTip = toolTipInt;
+        }
 
+        /// <summary>
+        /// Vypise hlasku na radek, ktere obdrzi
+        /// </summary>
+        internal void VypisChybu(string hlaska, VstupRadek vstupRadek)
+        {
+            vstupRadek.ChybaTextBlock.Text = hlaska;
+            vstupRadek.ChybaTextBlock.Visibility = Visibility.Visible;
+        }
 
+        /// <summary>
+        /// Vyrobi novy radek a da ho do StackPanelu v MainWindow
+        /// </summary>
+        /// <param name="jmenoRadku">unikatni jmeno pro identifikaci - asi nepotrebne</param>
+        public void VyrobRadek(KutSprinty.IData vstupData, KutSprinty.VstupPrompty vstupPrompty, string jmenoRadku)
+        {
+            RadkyStackPanel.Children.Add(new VstupRadek(vstupData, vstupPrompty, jmenoRadku));
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            radekText1 = VstupRadek1.VstupTextBox.Text;
-            radekText2 = VstupRadek2.VstupTextBox.Text;
+            foreach(VstupRadek vstupRadek in RadkyStackPanel.Children)
+            {
+                vstupRadek.ChybaTextBlock.Visibility = Visibility.Collapsed;
+            }
+            PoslanVstup.Invoke(this, RadkyStackPanel.Children);
         }
     }
 

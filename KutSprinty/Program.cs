@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace TridyVstupVypocetVystup
+namespace KutSprinty
 {
+    
     class Program
     {
         static void Main(string[] args)
-        {
+        {            
             KriteriaTxt kriteriaTxt = new KriteriaTxt();
             KriteriaInt kriteriaInt = new KriteriaInt();
             DataTxt txtData = new DataTxt(new KontrolaTxt(kriteriaTxt.Kriteria));

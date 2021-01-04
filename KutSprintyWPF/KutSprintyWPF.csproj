@@ -74,6 +74,8 @@
     <Compile Include="VstupRadek.xaml.cs">
       <DependentUpon>VstupRadek.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VstupWPF.cs" />
+    <Compile Include="WPFAppFactory.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="doomguy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KutSprinty\KutSprinty.csproj">
+      <Project>{914f8595-4b53-4df5-9849-572259763436}</Project>
+      <Name>KutSprinty</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

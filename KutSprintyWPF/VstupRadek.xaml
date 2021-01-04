@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     <WrapPanel Margin="0, 5">
-        <Label Name="VstupLabel" Target="{Binding ElementName=VstupTextBox}" Content="PromptVstupText"/>
+        <Label Name="VstupLabel" Target="{Binding ElementName=VstupTextBox}" Content="PromptVstupX"/>
         <TextBox x:Name="VstupTextBox" Width="50" Margin="10,0" HorizontalAlignment="Left"/>
         <TextBlock Name = "ChybaTextBlock" VerticalAlignment="Center" Text="Chybova hlaska" Visibility="Hidden"/>
     </WrapPanel>

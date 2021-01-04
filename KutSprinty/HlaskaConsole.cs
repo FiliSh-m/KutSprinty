@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TridyVstupVypocetVystup
+namespace KutSprinty
 {
     class HlaskaConsole
     {

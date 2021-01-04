@@ -4,7 +4,7 @@ using System.Text;
 
 namespace KutSprinty
 {
-    class VstupPrompty
+    public class VstupPrompty
     {
         public string PromptZadaniVstupu
         {

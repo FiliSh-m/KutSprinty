@@ -1,9 +1,9 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Třída pro zpracování a je nosičem dat typu int
     /// </summary>
-    class DataInt : IData
+    public class DataInt : IData
     {
         private int _hodnota;
 

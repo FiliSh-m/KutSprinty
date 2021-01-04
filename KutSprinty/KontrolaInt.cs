@@ -1,9 +1,9 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Třída pro kontrolu dat ve formátu int
     /// </summary>
-    class KontrolaInt
+    public class KontrolaInt
     {
         private readonly int[] _platnaCisla = new int[2];
 

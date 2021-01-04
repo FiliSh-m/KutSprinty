@@ -1,9 +1,9 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Třída pro kontrolu dat ve formátu string
     /// </summary>
-    class KontrolaTxt
+    public class KontrolaTxt
     {
         private readonly string _platneZnaky;
 

@@ -20,9 +20,11 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class VstupRadek : UserControl
     {
-        public VstupRadek()
+        public VstupRadek(KutSprinty.IData vstupData, KutSprinty.VstupPrompty vstupPrompty, string jmenoRadku)
         {
+            Name = jmenoRadku;           
             InitializeComponent();
+            VstupLabel.Content = String.Format(vstupPrompty.PromptZadaniVstupu, vstupData.TypDat);
         }
     }
 }

@@ -1,12 +1,12 @@
 ﻿using KutSprinty;
 using System;
 
-namespace TridyVstupVypocetVystup
+namespace KutSprinty
 {
     /// <summary>
     /// Vstup pro konzoli
     /// </summary>
-    class VstupConsole : IVstup
+    public class VstupConsole : IVstup
     {
         private  IData _hodnota;
         private string hlaska;

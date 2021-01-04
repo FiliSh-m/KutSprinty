@@ -1,4 +1,4 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Původní vstup. Nekomunikuje s uživatelem, podstrkuje string jako vstup.

@@ -1,9 +1,9 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
     /// <summary>
     /// Třída pro zpracování a je nosičem dat typu string
     /// </summary>
-    class DataTxt : IData
+    public class DataTxt : IData
     {
         private string _hodnota;
 

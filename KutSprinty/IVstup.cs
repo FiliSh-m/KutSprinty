@@ -1,9 +1,9 @@
-﻿namespace TridyVstupVypocetVystup
+﻿namespace KutSprinty
 {
-    interface IVstup
+    public interface IVstup
     {
         public IData Hodnota { get; }
-        public void ProvedZiskaniDat();
+        //public void ProvedZiskaniDat();
     }
 
 }
