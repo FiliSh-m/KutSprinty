@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using KutSprinty;
 
 namespace KutSprintyWPF
@@ -14,8 +15,8 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class App : Application
     {
-        private VstupWPF _mujVstTxt;
-        private VstupWPF _mujVstInt;
+        private VstupRadek _mujVstTxt;
+        private VstupRadek _mujVstInt;
         private DataTxt _ziskanyTxt;
         private DataInt _ziskanyInt;
         public App()
@@ -35,23 +36,25 @@ namespace KutSprintyWPF
 
             //Vytvoreni vstupu pro kazdy radek
             //TODO: Tady by taky bylo potreba to nejak zautomatizovat + zbavit se atributu jmeno u radku?
-            _mujVstTxt = new VstupWPF(txtData, vstupPrompty, wpfOkno, "Radek1");
-            _mujVstInt = new VstupWPF(intData, vstupPrompty, wpfOkno, "Radek2");
-            
+            _mujVstTxt = new VstupRadek(txtData);
+            _mujVstInt = new VstupRadek(intData);
+
+            wpfOkno.RadkyStackPanel.Children.Add(_mujVstTxt);
+            wpfOkno.RadkyStackPanel.Children.Add(_mujVstInt);
+
             //Prirazovani event handleru
             _mujVstTxt.ZiskanyVstup += mujVstTxt_ZiskanyVstup;
             _mujVstInt.ZiskanyVstup += mujVstInt_ZiskanyVstup;
-            wpfOkno.PoslanVstup += WpfOkno_PoslanVstup;
+
+            wpfOkno.StisknutoPotvrdit += wpfOkno_StisknutoPotvrdit;
         }
 
-        /// <summary>
-        /// Prevezme collection radku a provede pro kazdy z nich ziskani dat
-        /// </summary>
-        //TODO: Predelat nejak elegantneji, aby to nebylo zavisle na poradi radku
-        private void WpfOkno_PoslanVstup(object sender, System.Windows.Controls.UIElementCollection VstupRadky)
+        private void wpfOkno_StisknutoPotvrdit(object sender, UIElementCollection vstupRadky)
         {
-            _mujVstTxt.ProvedZiskaniDat(sender, (VstupRadek)VstupRadky[0]);
-            _mujVstInt.ProvedZiskaniDat(sender, (VstupRadek)VstupRadky[1]);
+            foreach (VstupRadek vstupRadek in vstupRadky)
+            {
+                vstupRadek.ProvedZiskaniDat();
+            }
         }
 
         /// <summary>

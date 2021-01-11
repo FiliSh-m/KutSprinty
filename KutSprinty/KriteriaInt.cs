@@ -4,6 +4,9 @@ using System.Text;
 
 namespace KutSprinty
 {
+    /// <summary>
+    /// Obsahuje kriteria kontroly dat typu integer
+    /// </summary>
     public class KriteriaInt : IKriteria
     {
         public int[] Kriteria

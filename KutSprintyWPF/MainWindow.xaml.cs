@@ -16,44 +16,21 @@ using System.Windows.Shapes;
 namespace KutSprintyWPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Code behind pro MainWindow, po stisknuti tlacitka Potvrdit posle pres event sve radky do App
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Event handler na posilani radku se vstupem
-        //TODO: posilani celych radku je mozna zbytecne, ale zase je to jednoduche
-        public event EventHandler<UIElementCollection> PoslanVstup;
+
+        public EventHandler<UIElementCollection> StisknutoPotvrdit;
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        /// <summary>
-        /// Vypise hlasku na radek, ktere obdrzi
-        /// </summary>
-        internal void VypisChybu(string hlaska, VstupRadek vstupRadek)
-        {
-            vstupRadek.ChybaTextBlock.Text = hlaska;
-            vstupRadek.ChybaTextBlock.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// Vyrobi novy radek a da ho do StackPanelu v MainWindow
-        /// </summary>
-        /// <param name="jmenoRadku">unikatni jmeno pro identifikaci - asi nepotrebne</param>
-        public void VyrobRadek(KutSprinty.IData vstupData, KutSprinty.VstupPrompty vstupPrompty, string jmenoRadku)
-        {
-            RadkyStackPanel.Children.Add(new VstupRadek(vstupData, vstupPrompty, jmenoRadku));
-        }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            foreach(VstupRadek vstupRadek in RadkyStackPanel.Children)
-            {
-                vstupRadek.ChybaTextBlock.Visibility = Visibility.Collapsed;
-            }
-            PoslanVstup.Invoke(this, RadkyStackPanel.Children);
+            StisknutoPotvrdit.Invoke(sender, RadkyStackPanel.Children);
         }
     }
 

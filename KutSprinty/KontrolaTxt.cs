@@ -7,6 +7,9 @@
     {
         private readonly string _platneZnaky;
 
+        /// <param name="zadanePlatneZnaky">
+        /// Vsechny znaky, ktere trida uzna - jsou soucasti KriteriaTxt
+        /// </param>
         public KontrolaTxt(string zadanePlatneZnaky)
         {
             _platneZnaky = zadanePlatneZnaky;

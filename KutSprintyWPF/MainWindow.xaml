@@ -26,6 +26,7 @@
     </Window.Resources>
     <DockPanel Margin="10">
         <StackPanel x:Name="RadkyStackPanel" DockPanel.Dock="Top">
+            
         </StackPanel>
         <StackPanel>
             <Button HorizontalAlignment="Left" Padding="10, 0" Margin="5" Click="Button_Click">Potvrdit</Button>

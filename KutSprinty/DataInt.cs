@@ -7,6 +7,11 @@
     {
         private int _hodnota;
 
+        public string PromptZadaniVstupu
+        {
+            get { return "Zadejte vstup (číslo)"; }
+        }
+
         public string TypDat
         {
             get { return "číslo"; }
@@ -14,6 +19,9 @@
 
         KontrolaInt kontrolaInt;
 
+        /// <param name="predanaKontrolaTxt">
+        /// Trida, ve ktere probehne kontrola dat pred ulozenim
+        /// </param>
         public DataInt(KontrolaInt predanaKontrolaInt)
         {
             kontrolaInt = predanaKontrolaInt;

@@ -74,8 +74,6 @@
     <Compile Include="VstupRadek.xaml.cs">
       <DependentUpon>VstupRadek.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VstupWPF.cs" />
-    <Compile Include="WPFAppFactory.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -42,8 +42,5 @@ namespace KutSprinty
             Console.Write(string.Format(_prompty.PromptZadaniVstupu, ulozisteDat.TypDat)); //Podle mě tohle má cenu, protože pak můžu mít přizpůsobený ty na základě požadovaného typu dat
             return Console.ReadLine();
         }
-
-
     }
-
 }

@@ -7,6 +7,11 @@
     {
         private string _hodnota;
 
+        public string PromptZadaniVstupu
+        {
+            get { return "Zadejte vstup (text)"; }
+        }
+
         public string TypDat
         {
             get { return "text"; }
@@ -14,6 +19,9 @@
 
         KontrolaTxt kontrolaTxt;
 
+        /// <param name="predanaKontrolaTxt">
+        /// Trida, ve ktere probehne kontrola dat pred ulozenim
+        /// </param>
         public DataTxt(KontrolaTxt predanaKontrolaTxt)
         {
             kontrolaTxt = predanaKontrolaTxt;

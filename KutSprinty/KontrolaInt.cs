@@ -7,6 +7,9 @@
     {
         private readonly int[] _platnaCisla = new int[2];
 
+        /// <param name="zadanaPlatnaCisla">
+        /// Rozsah hodnot, ktere Kontrola prijme - jsou soucasti KriteriaInt
+        /// </param>
         public KontrolaInt(int[] zadanaPlatnaCisla)
         {
             _platnaCisla = zadanaPlatnaCisla;
