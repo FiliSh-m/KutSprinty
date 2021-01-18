@@ -11,11 +11,11 @@ using KutSprinty;
 namespace KutSprintyWPF
 {
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Hlavni cast programu. Vyrobi okno a s radky podle vyzadovanych dat a ceka na jejich uspesne ziskani
     /// </summary>
     public partial class App : Application
     {
-        //TODO: Protoze mam jen dva typy DataX, nemuzu zobrazovat konkretni texty pro zadani PSC, Jmena atd... Je potreba nejak chytre vyrobit dalsi typy
+        //TODO: Protoze mam jen dva typy DataX, nemuzu zobrazovat konkretni texty pro zadani PSC, Jmena atd... Je potreba nejak chytre vyrobit dalsi typy - dedicnost?
         private DataTxt _ziskanJmeno;
         private DataTxt _ziskanPrijmeni;
         private DataInt _ziskanPSC;
@@ -36,9 +36,10 @@ namespace KutSprintyWPF
             DataInt pscData = new DataInt(new KontrolaInt(kriteriaPSC.Kriteria));
             DataInt telefonData = new DataInt(new KontrolaInt(kriteriaTelefon.Kriteria));
 
+            //TODO: Tohle cele zavani neefektivitou, musi jit nejak lip tvorit velke mnozstvi radku a chytat z nich eventy
             MainWindow wpfOkno = VyrobOkno(new IData[] { jmenoData, prijmeniData, pscData, telefonData}, out vstupRadky);
 
-            //TODO: Tohle zavani neefektivitou
+            //TODO: Jsou ty radky takhle nahore vubec potreba?
             VstupRadek _mujVstJmeno = vstupRadky.ElementAt(0);
             VstupRadek _mujVstPrijmeni = vstupRadky.ElementAt(1);
             VstupRadek _mujVstPSC = vstupRadky.ElementAt(2);

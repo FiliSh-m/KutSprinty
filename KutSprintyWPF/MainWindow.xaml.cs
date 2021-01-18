@@ -25,6 +25,11 @@ namespace KutSprintyWPF
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Prida radky do RadkyStackPanel na zaklade poslaneho pole dat
+        /// </summary>
+        /// <param name="datas">pole dat, ktera chceme ziskat</param>
+        /// <returns>List radku v poradi, jak byly vytvoreny</returns>
         public List<VstupRadek> PridejRadky(KutSprinty.IData[] datas)
         {
             var radky = new List<VstupRadek>();
