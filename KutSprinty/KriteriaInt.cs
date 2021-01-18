@@ -9,12 +9,19 @@ namespace KutSprinty
     /// </summary>
     public class KriteriaInt : IKriteria
     {
+        private readonly int _maxHodnota;
+
         public int[] Kriteria
         {
             get
             {
-                return new int[] { 0, 999999 };
+                return new int[] { 0, _maxHodnota };
             }
+        }
+
+        public KriteriaInt(int delka)
+        {
+            _maxHodnota = (int)(Math.Pow(10, delka) - 1);
         }
     }
 }

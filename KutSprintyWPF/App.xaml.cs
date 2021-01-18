@@ -15,69 +15,77 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class App : Application
     {
-        private VstupRadek _mujVstTxt;
-        private VstupRadek _mujVstInt;
-        private DataTxt _ziskanyTxt;
-        private DataInt _ziskanyInt;
+        //TODO: Protoze mam jen dva typy DataX, nemuzu zobrazovat konkretni texty pro zadani PSC, Jmena atd... Je potreba nejak chytre vyrobit dalsi typy
+        private DataTxt _ziskanJmeno;
+        private DataTxt _ziskanPrijmeni;
+        private DataInt _ziskanPSC;
+        private DataInt _ziskanTelefon;
         public App()
         {
-            MainWindow wpfOkno = VyrobOkno();
+            List<VstupRadek> vstupRadky;
 
             //Vytvoreni trid s kriterii kontroly
-            KriteriaTxt kriteriaTxt = new KriteriaTxt();
-            KriteriaInt kriteriaInt = new KriteriaInt();
+            KriteriaTxt kriteriaObecnyText = new KriteriaTxt();
+            KriteriaInt kriteriaInt = new KriteriaInt(6);
+            KriteriaInt kriteriaPSC = new KriteriaInt(5);
+            KriteriaInt kriteriaTelefon = new KriteriaInt(9);
 
             //Vytvoreni trid pro data a prirazeni trid pro kontrolu a kriteria
-            DataTxt txtData = new DataTxt(new KontrolaTxt(kriteriaTxt.Kriteria));
-            DataInt intData = new DataInt(new KontrolaInt(kriteriaInt.Kriteria));
+            DataTxt jmenoData = new DataTxt(new KontrolaTxt(kriteriaObecnyText.Kriteria));
+            DataTxt prijmeniData = new DataTxt(new KontrolaTxt(kriteriaObecnyText.Kriteria));
+            DataInt pscData = new DataInt(new KontrolaInt(kriteriaPSC.Kriteria));
+            DataInt telefonData = new DataInt(new KontrolaInt(kriteriaTelefon.Kriteria));
 
-            //Vytvoreni tridy obsahujici prompty
-            VstupPrompty vstupPrompty = new VstupPrompty();
+            MainWindow wpfOkno = VyrobOkno(new IData[] { jmenoData, prijmeniData, pscData, telefonData}, out vstupRadky);
 
-            //Vytvoreni vstupu pro kazdy radek
-            //TODO: Tady by taky bylo potreba to nejak zautomatizovat + zbavit se atributu jmeno u radku?
-            _mujVstTxt = new VstupRadek(txtData);
-            _mujVstInt = new VstupRadek(intData);
+            //TODO: Tohle zavani neefektivitou
+            VstupRadek _mujVstJmeno = vstupRadky.ElementAt(0);
+            VstupRadek _mujVstPrijmeni = vstupRadky.ElementAt(1);
+            VstupRadek _mujVstPSC = vstupRadky.ElementAt(2);
+            VstupRadek _mujVstTelefon = vstupRadky.ElementAt(3);
 
-            wpfOkno.RadkyStackPanel.Children.Add(_mujVstTxt);
-            wpfOkno.RadkyStackPanel.Children.Add(_mujVstInt);
+            //wpfOkno.RadkyStackPanel.Children.Add(_mujVstTxt);
+            //wpfOkno.RadkyStackPanel.Children.Add(_mujVstInt);
 
             //Prirazovani event handleru
-            _mujVstTxt.ZiskanyVstup += mujVstTxt_ZiskanyVstup;
-            _mujVstInt.ZiskanyVstup += mujVstInt_ZiskanyVstup;
-
-            wpfOkno.StisknutoPotvrdit += wpfOkno_StisknutoPotvrdit;
-        }
-
-        private void wpfOkno_StisknutoPotvrdit(object sender, UIElementCollection vstupRadky)
-        {
-            foreach (VstupRadek vstupRadek in vstupRadky)
-            {
-                vstupRadek.ProvedZiskaniDat();
-            }
+            _mujVstJmeno.ZiskanyVstup += mujVstJmeno_ZiskanyVstup;
+            _mujVstPrijmeni.ZiskanyVstup += _mujVstPrijmeni_ZiskanyVstup;
+            _mujVstPSC.ZiskanyVstup += mujVstPSC_ZiskanyVstup;
+            _mujVstTelefon.ZiskanyVstup += _mujVstTelefon_ZiskanyVstup;
         }
 
         /// <summary>
         /// Vyrobi nove MainWindow a ukaze ho
         /// </summary>
         /// <returns>MainWindow</returns>
-        MainWindow VyrobOkno()
+        MainWindow VyrobOkno(KutSprinty.IData[] datas, out List<VstupRadek> radkyList)
         {
             MainWindow window = new MainWindow();
+            radkyList = window.PridejRadky(datas);
             window.Show();
             return window;
         }
 
         //Metody pro eventy na ulozeni ziskaneho vstupu
         //TODO: Predelat, abych nemusel delat novou metodu pro kazdy radek
-        void mujVstInt_ZiskanyVstup(object sender, IData poslanaData)
+        void mujVstJmeno_ZiskanyVstup(object sender, IData poslanaData)
         {
-            _ziskanyInt = (DataInt)poslanaData;
+            _ziskanJmeno = (DataTxt)poslanaData;
         }
 
-        void mujVstTxt_ZiskanyVstup(object sender, IData poslanaData)
+        private void _mujVstPrijmeni_ZiskanyVstup(object sender, IData poslanaData)
         {
-            _ziskanyTxt = (DataTxt)poslanaData;
+            _ziskanPrijmeni = (DataTxt)poslanaData;
+        }
+
+        void mujVstPSC_ZiskanyVstup(object sender, IData poslanaData)
+        {
+            _ziskanPSC = (DataInt)poslanaData;
+        }
+
+        private void _mujVstTelefon_ZiskanyVstup(object sender, IData poslanaData)
+        {
+            _ziskanTelefon = (DataInt)poslanaData;
         }
     }
 }

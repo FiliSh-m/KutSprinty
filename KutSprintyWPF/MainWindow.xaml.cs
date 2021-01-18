@@ -20,17 +20,30 @@ namespace KutSprintyWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public EventHandler<UIElementCollection> StisknutoPotvrdit;
-
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        public List<VstupRadek> PridejRadky(KutSprinty.IData[] datas)
+        {
+            var radky = new List<VstupRadek>();
+            foreach (KutSprinty.IData data in datas)
+            {
+                VstupRadek novyRadek = new VstupRadek(data);
+                RadkyStackPanel.Children.Add(novyRadek);
+                radky.Add(novyRadek);
+            }
+            return radky;
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            StisknutoPotvrdit.Invoke(sender, RadkyStackPanel.Children);
+            foreach (VstupRadek vstupRadek in RadkyStackPanel.Children)
+            {
+                vstupRadek.ProvedZiskaniDat();
+            }
+
         }
     }
 

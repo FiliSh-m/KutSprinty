@@ -10,7 +10,7 @@ namespace KutSprinty
         static void Main(string[] args)
         {            
             KriteriaTxt kriteriaTxt = new KriteriaTxt();
-            KriteriaInt kriteriaInt = new KriteriaInt();
+            KriteriaInt kriteriaInt = new KriteriaInt(6);
             DataTxt txtData = new DataTxt(new KontrolaTxt(kriteriaTxt.Kriteria));
             DataInt intData = new DataInt(new KontrolaInt(kriteriaInt.Kriteria));
             DataTxt ziskanyTxt;

@@ -13,7 +13,7 @@ namespace KutSprinty
         {
             get
             {
-                return "abcdefghijklmnopqrstuvwxyz";
+                return "aábcčdďeéěfghiíjklmnňoópqrřsštťuúůvwxyýzžAÁBCČDEĚÉFGHIÍJKLMNŇOÓPQŘSŠTŤUÚŮVWXYÝZŽ";
             }
         }
     }
