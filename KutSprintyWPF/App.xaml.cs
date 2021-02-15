@@ -20,6 +20,20 @@ namespace KutSprintyWPF
         private DataTxt _ziskanPrijmeni;
         private DataInt _ziskanPSC;
         private DataInt _ziskanTelefon;
+
+        private Dictionary<string, IData> _ziskanaData;
+
+        /// <summary>
+        /// Slovnik ziskanych dat podle nazvu
+        /// </summary>
+        public Dictionary<string, IData> ZiskanaData
+        {
+            get
+            {
+                return _ziskanaData;
+            }
+        }
+
         public App()
         {
             List<VstupRadek> vstupRadky;
@@ -71,22 +85,26 @@ namespace KutSprintyWPF
         //TODO: Predelat, abych nemusel delat novou metodu pro kazdy radek
         void mujVstJmeno_ZiskanyVstup(object sender, IData poslanaData)
         {
-            _ziskanJmeno = (DataTxt)poslanaData;
+            //_ziskanJmeno = (DataTxt)poslanaData;
+            _ziskanaData.Add("Jmeno", poslanaData);
         }
 
         private void _mujVstPrijmeni_ZiskanyVstup(object sender, IData poslanaData)
         {
-            _ziskanPrijmeni = (DataTxt)poslanaData;
+            //_ziskanPrijmeni = (DataTxt)poslanaData;
+            _ziskanaData.Add("Prijmeni", poslanaData);
         }
 
         void mujVstPSC_ZiskanyVstup(object sender, IData poslanaData)
         {
-            _ziskanPSC = (DataInt)poslanaData;
+            //_ziskanPSC = (DataInt)poslanaData;
+            _ziskanaData.Add("PSC", poslanaData);
         }
 
         private void _mujVstTelefon_ZiskanyVstup(object sender, IData poslanaData)
         {
-            _ziskanTelefon = (DataInt)poslanaData;
+            //_ziskanTelefon = (DataInt)poslanaData;
+            _ziskanaData.Add("Telefon", poslanaData);
         }
     }
 }
